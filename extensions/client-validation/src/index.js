@@ -24,21 +24,21 @@ function renderApp(root, { extension, buyerJourney }) {
     value: state.age,
     onChange: setAge,
     onInput: clearValidationErrors,
-    // [START client-validation.field-required]
     required: state.canBlockProgress,
-    // [END client-validation.field-required]
   });
   // [END client-validation.render-extension]
   // [START client-validation.subscribe-block-progress]
   // Merchants can toggle the `block_progress` capability behavior within the checkout editor
   extension.capabilities.subscribe((capabilities) => {
     state.canBlockProgress = capabilities.includes("block_progress");
+  // [END client-validation.subscribe-block-progress ]
+  // [START client-validation.field-required]
     textField.updateProps({
       label: state.canBlockProgress ? "Your age" : "Your age (optional)",
       required: state.canBlockProgress,
     });
+   // [END client-validation.field-required]
   });
-  // [END client-validation.subscribe-block-progress ]
   // [START client-validation.buyer-journey-intercept]
   // Use the `buyerJourney` intercept to conditionally block checkout progress
   buyerJourney.intercept(({ canBlockProgress }) => {
